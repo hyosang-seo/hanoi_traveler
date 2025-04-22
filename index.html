@@ -2,266 +2,56 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hanoi Trip Map</title>
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Nanum+Gothic&display=swap" rel="stylesheet" />
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>우리의 여행 기록</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Nanum Gothic', sans-serif;
-      background-color: #fff5f8;
-      color: #333;
       margin: 0;
       padding: 0;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-      text-align: center;
+      font-family: 'Nanum Myeongjo', serif;
+      background-color: #fdf6f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
     }
 
     h1 {
-      margin-top: 40px;
-      font-family: 'Playfair Display', serif;
-      font-size: 36px;
-      color: #c85093;
+      color: #b86b77;
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
     }
 
-    h2 {
-      font-size: 24px;
-      margin: 20px 0 10px;
-      color: #c85093;
-    }
-
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 28px;
-      margin-bottom: 15px;
-      color: #d26a8d;
-    }
-
-    .hero-image {
-      width: 100%;
-      height: auto;
-      max-height: 450px;
-      object-fit: cover;
-      border-radius: 12px;
-      margin-top: 30px;
-    }
-
-    .buttons {
-      margin: 30px 0;
+    .button-container {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
+      gap: 1.5rem;
     }
 
-    .button {
-      padding: 12px 24px;
-      background-color: #c85093;
-      color: white;
+    .trip-button {
+      background-color: #f9d5d3;
       border: none;
-      border-radius: 25px;
+      padding: 1rem 2rem;
+      border-radius: 2rem;
+      font-size: 1.2rem;
+      color: #5e4b4b;
       cursor: pointer;
-      font-size: 16px;
-      transition: background-color 0.3s ease;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
-    .button:hover {
-      background-color: #a63872;
-    }
-
-    #map-frame {
-      width: 100%;
-      height: 600px;
-      border: none;
-      border-radius: 15px;
-      margin-top: 20px;
-    }
-
-    /* Countdown */
-    .countdown-box {
-      background-color: #ffeef2;
-      padding: 30px 20px;
-      border-radius: 15px;
-      margin: 40px auto;
-      max-width: 600px;
-      box-shadow: 0 4px 15px rgba(255, 153, 204, 0.3);
-    }
-
-    #countdown-text {
-      font-size: 20px;
-      color: #b3446c;
-      font-weight: 600;
-    }
-
-    /* Schedule Cards */
-    .schedule-cards {
-      margin: 60px auto;
-      max-width: 1000px;
-      padding: 0 20px;
-    }
-
-    .card-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-    }
-
-    .schedule-card {
-      background: #fff0f5;
-      padding: 20px;
-      border-radius: 20px;
-      width: 280px;
-      box-shadow: 0 4px 10px rgba(255, 192, 203, 0.3);
-      transition: transform 0.2s;
-    }
-
-    .schedule-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .schedule-card h3 {
-      color: #c85093;
-      margin-bottom: 10px;
-      font-size: 20px;
-    }
-
-    .schedule-card p {
-      color: #6d4c60;
-      margin: 5px 0;
-      font-size: 16px;
-    }
-
-    .footer {
-      margin-top: 60px;
-      background-color: #c85093;
-      color: white;
-      padding: 20px;
-      font-size: 16px;
-      border-radius: 5px;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 28px;
-      }
-
-      .hero-image {
-        max-height: 300px;
-      }
-
-      .button {
-        font-size: 14px;
-        padding: 10px 18px;
-      }
-
-      .schedule-card {
-        width: 90%;
-      }
+    .trip-button:hover {
+      transform: scale(1.05);
+      background-color: #f7c2bf;
     }
   </style>
 </head>
-
 <body>
-  <div class="container">
-    <!-- Hero Image -->
-    <img src="./images/IMG_top.jpg" alt="Romantic Hanoi" class="hero-image" />
-
-    <h1>Hanoi Trip Map</h1>
-    <h2>애기랑 하노이 여정 ✨</h2>
-
-    <!-- D-Day Countdown -->
-    <div class="countdown-box">
-      <h2 class="section-title">⏳ D-Day Countdown</h2>
-      <p id="countdown-text">로딩 중...</p>
-    </div>
-
-
-
-    <!-- 데이트 요약 카드 -->
-    <div class="schedule-cards">
-        <h2 class="section-title">💕 데이트 코스 미리보기</h2>
-        <div class="card-list">
-          <div class="schedule-card">
-            <h3>📍 Day 1 – 하노이 첫 만남</h3>
-            <p>성요셉 성당에서 인생샷 📸</p>
-            <p>호안끼엠 호수 산책 👫</p>
-            <p>탕롱 수상 인형극장 🎭</p>
-          </div>
-          <div class="schedule-card">
-            <h3>📍 Day 2 – 여유로운 하루</h3>
-            <p>메가 그랜드월드 데이트 🛍️</p>
-            <p>피자포피스에서 맥주 한잔 🍕🍺</p>
-            <p>롯데 스카이 전망대 야경 ✨</p>
-          </div>
-          <div class="schedule-card">
-            <h3>📍 Day 3 – 하노이 로컬 감성</h3>
-            <p>못꼿 사원 & 바딘 광장 🇻🇳</p>
-            <p>로즈키친 쿠킹클래스 👩‍🍳</p>
-            <p>기찻길에서 인생샷 2탄 🚂</p>
-          </div>
-        </div>
-      </div>
-
-      
-      
-    <!-- Map Buttons -->
-    <div class="buttons">
-        <button class="button" onclick="loadMap('map/day_total.html')">전체 경로</button>
-        <button class="button" onclick="loadMap('map/day_1.html')">4/25</button>
-        <button class="button" onclick="loadMap('map/day_2.html')">4/26</button>
-        <button class="button" onclick="loadMap('map/day_3.html')">4/27</button>
-    </div>
-
-    <!-- Map Iframe -->
-    <iframe id="map-frame" src="map/day_total.html"></iframe>
-
-    <!-- Footer -->
-    <div class="footer">
-      <p>💕 우리 둘만의 추억이 쌓여가는 하노이 여행 💕</p>
-    </div>
+  <h1>우리의 여행 기록</h1>
+  <div class="button-container">
+    <button class="trip-button" onclick="location.href='jeju.html'">제주도</button>
+    <button class="trip-button" onclick="location.href='hanoi.html'">하노이</button>
   </div>
-
-  <!-- Countdown Script -->
-  <script>
-
-
-
-    function loadMap(mapUrl) {
-        var iframe = document.getElementById('map-frame');
-        iframe.src = mapUrl;
-    }
-
-
-    const targetDate = new Date("2025-04-24T20:45:00");
-    const countdownText = document.getElementById('countdown-text');
-
-    function updateCountdown() {
-      const now = new Date();
-      const diff = targetDate - now;
-
-      if (diff <= 0) {
-        countdownText.innerText = "🎉 드디어 출발! 사랑 가득한 여행이 시작됐어요!";
-        return;
-      }
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor(diff / (1000 * 60 * 60)) % 24;
-      const minutes = Math.floor(diff / (1000 * 60)) % 60;
-
-      countdownText.innerText = `✈️ 출발까지 D-${days}일 ${hours}시간 ${minutes}분 남았어요`;
-    }
-
-    updateCountdown();
-    setInterval(updateCountdown, 60000);
-  </script>
 </body>
 </html>
